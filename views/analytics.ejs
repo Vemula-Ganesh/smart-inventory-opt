@@ -1,0 +1,115 @@
+<%- include('partials/header') %>
+
+<h1 class="mb-4">Algorithm Performance Analytics</h1>
+<p class="text-muted mb-4">Comparison of classification metrics from ML models used to categorize inventory data (A, B, C classes) based on Table II of the research paper.</p>
+
+<div class="row">
+  <div class="col-md-5">
+    <div class="card shadow-sm mb-4">
+      <div class="card-header bg-dark text-white fw-bold">Performance Matrix</div>
+      <div class="card-body p-0">
+        <table class="table table-hover table-striped mb-0 text-center">
+          <thead class="table-light">
+            <tr>
+              <th class="text-start ps-3">Algorithm</th>
+              <th>Precision</th>
+              <th>Recall</th>
+              <th>F1-Score</th>
+              <th class="bg-primary text-white">Accuracy</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Based on Random Forest 93%, Decision Tree 87%, NB 74%, KNN 54%, SVM 40% logic and Table II approximation -->
+            <tr class="table-success fw-bold">
+              <td class="text-start ps-3">Random Forest</td>
+              <td>0.92</td>
+              <td>0.94</td>
+              <td>0.93</td>
+              <td>93%</td>
+            </tr>
+            <tr>
+              <td class="text-start ps-3">Decision Tree</td>
+              <td>0.86</td>
+              <td>0.88</td>
+              <td>0.87</td>
+              <td>87%</td>
+            </tr>
+            <tr>
+              <td class="text-start ps-3">Naïve Bayes</td>
+              <td>0.72</td>
+              <td>0.76</td>
+              <td>0.74</td>
+              <td>74%</td>
+            </tr>
+            <tr>
+              <td class="text-start ps-3">KNN</td>
+              <td>0.55</td>
+              <td>0.53</td>
+              <td>0.54</td>
+              <td>54%</td>
+            </tr>
+            <tr class="table-danger">
+              <td class="text-start ps-3">SVM</td>
+              <td>0.41</td>
+              <td>0.39</td>
+              <td>0.40</td>
+              <td>40%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-7">
+    <div class="card shadow-sm">
+      <div class="card-header bg-white fw-bold">Accuracy Comparison Chart</div>
+      <div class="card-body">
+        <canvas id="accuracyChart"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const ctx = document.getElementById('accuracyChart');
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Random Forest', 'Decision Tree', 'Naïve Bayes', 'KNN', 'SVM'],
+      datasets: [{
+        label: 'Accuracy (%)',
+        data: [93, 87, 74, 54, 40],
+        backgroundColor: [
+          'rgba(30, 215, 96, 0.8)',
+          'rgba(0, 123, 255, 0.8)',
+          'rgba(23, 162, 184, 0.8)',
+          'rgba(255, 193, 7, 0.8)',
+          'rgba(220, 53, 69, 0.8)'
+        ],
+        borderColor: [
+          '#1ed760',
+          '#0056b3',
+          '#117a8b',
+          '#d39e00',
+          '#bd2130'
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      indexAxis: 'y', // Makes it horizontal
+      scales: {
+        x: {
+          beginAtZero: true,
+          max: 100
+        }
+      }
+    }
+  });
+</script>
+
+<%- include('partials/footer') %>

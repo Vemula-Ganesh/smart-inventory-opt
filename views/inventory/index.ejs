@@ -1,0 +1,62 @@
+<%- include('../partials/header') %>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h2 class="fw-bold">Inventory Data Setup</h2>
+  <a href="/inventory/add" class="btn btn-success">+ Add SKU Data</a>
+</div>
+
+<div class="table-responsive bg-white rounded shadow-sm">
+  <table class="table table-hover table-striped align-middle mb-0">
+    <thead class="table-dark">
+      <tr>
+        <th>SKU_ID</th>
+        <th>Cost</th>
+        <th>Count</th>
+        <th>Total Cost</th>
+        <th>Lead Time</th>
+        <th>Shelf Life</th>
+        <th>EOQ</th>
+        <th>Demand Fluct</th>
+        <th>ABC</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if (items.length > 0) { %>
+        <% items.forEach(item => { %>
+          <tr>
+            <td class="fw-bold"><%= item.SKU_ID %></td>
+            <td>$<%= item.Item_Cost %></td>
+            <td><%= item.Item_Count %></td>
+            <td>$<%= item.Total_Cost.toFixed(2) %></td>
+            <td><%= item.Lead_Time %>d</td>
+            <td><%= item.Shelf_Life %>d</td>
+            <td><%= item.EOQ %></td>
+            <td><span class="badge bg-secondary"><%= item.Demand_Fluct %></span></td>
+            <td>
+              <span class="badge 
+                <%= item.ABC_Classification === 'A' ? 'bg-success' : '' %>
+                <%= item.ABC_Classification === 'B' ? 'bg-warning text-dark' : '' %>
+                <%= item.ABC_Classification === 'C' ? 'bg-danger' : '' %>
+              ">
+                <%= item.ABC_Classification %>
+              </span>
+            </td>
+            <td>
+              <a href="/inventory/edit/<%= item._id %>" class="btn btn-sm btn-outline-primary">Edit</a>
+              <form action="/inventory/delete/<%= item._id %>?_method=DELETE" method="POST" class="d-inline">
+                <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Delete this SKU?');">Del</button>
+              </form>
+            </td>
+          </tr>
+        <% }) %>
+      <% } else { %>
+        <tr>
+          <td colspan="10" class="text-center py-4 text-muted">No SKU data found. Click Add SKU to begin.</td>
+        </tr>
+      <% } %>
+    </tbody>
+  </table>
+</div>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,88 @@
+<%- include('partials/header') %>
+
+<h1 class="mb-4">Dashboard</h1>
+
+<div class="row g-4 mb-5">
+  <div class="col-md-3">
+    <div class="card text-white bg-primary h-100 shadow-sm">
+      <div class="card-body d-flex flex-column justify-content-center align-items-center">
+        <h5 class="card-title">Total SKUs</h5>
+        <h2 class="fw-bold m-0"><%= typeof totalSKUs !== 'undefined' ? totalSKUs : 0 %></h2>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-md-5">
+    <div class="card text-white bg-dark h-100 shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title text-center">ABC Class Distribution</h5>
+        <div class="d-flex justify-content-around mt-3">
+          <div class="text-center text-success"><h4 class="fw-bold m-0">A</h4><small><%= typeof countA !== 'undefined' ? countA : 0 %></small></div>
+          <div class="text-center text-warning"><h4 class="fw-bold m-0">B</h4><small><%= typeof countB !== 'undefined' ? countB : 0 %></small></div>
+          <div class="text-center text-danger"><h4 class="fw-bold m-0">C</h4><small><%= typeof countC !== 'undefined' ? countC : 0 %></small></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card text-white bg-success h-100 shadow-sm">
+      <div class="card-body d-flex flex-column justify-content-center align-items-center">
+        <h5 class="card-title">Overall Value</h5>
+        <h2 class="fw-bold m-0">$<%= typeof overallValue !== 'undefined' ? overallValue.toFixed(2) : 0.00 %></h2>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-8 mx-auto">
+    <div class="card shadow-sm">
+      <div class="card-header bg-white fw-bold">
+        Actual Distribution (Count)
+      </div>
+      <div class="card-body">
+        <canvas id="abcChart"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const ctx = document.getElementById('abcChart');
+  if(ctx) {
+    const rawData = '<%- typeof chartData !== "undefined" ? chartData : "[0,0,0]" %>';
+    const dataObj = JSON.parse(rawData);
+
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Class A (High Value)', 'Class B (Med Value)', 'Class C (Low Value)'],
+        datasets: [{
+          label: 'SKU Count',
+          data: dataObj,
+          backgroundColor: [
+            'rgba(30, 215, 96, 0.7)',
+            'rgba(255, 193, 7, 0.7)',
+            'rgba(220, 53, 69, 0.7)'
+          ],
+          borderColor: [
+            'rgba(30, 215, 96, 1)',
+            'rgba(255, 193, 7, 1)',
+            'rgba(220, 53, 69, 1)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    });
+  }
+</script>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,30 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.auth-bg {
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+}
+
+.auth-bg .card {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  border: none;
+}
+
+.navbar {
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.badge {
+  font-size: 0.85em;
+  padding: 0.4em 0.8em;
+}
+
+.table th, .table td {
+  vertical-align: middle;
+}
+
+.card {
+  border-radius: 8px;
+  border: none;
+}
