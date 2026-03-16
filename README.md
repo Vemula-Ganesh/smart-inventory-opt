@@ -2,9 +2,11 @@
 
 This is a full-stack web application built using Express.js (Node.js) and MongoDB. It implements an inventory management system based on ABC classification, allowing users to manage SKUs, analyze classification metrics from various Machine Learning models, and run test predictions.
 
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/Vemula-Ganesh/smart-inventory-opt)
+
 ## Tech Stack
 - **Backend:** Node.js, Express.js
-- **Database:** MongoDB, Mongoose ODM
+- **Database:** MongoDB Atlas (Cloud)
 - **Authentication:** express-session, bcrypt
 - **Frontend:** EJS Templating, Bootstrap 5, Chart.js
 
@@ -14,27 +16,6 @@ This is a full-stack web application built using Express.js (Node.js) and MongoD
 - Full CRUD capabilities for Inventory SKUs with multi-attribute management (Cost, Lead Time, Demand Fluctuation, etc.).
 - Machine Learning predictor simulator (simulating model accuracies: Random Forest 93%, Decision Tree 87%, SVM 40%, etc.).
 - Performance analytics page demonstrating data sourced from ML models on an accuracy matrix.
-
-## GitHub Upload Instructions
-
-If you wish to upload this to GitHub, run these commands in your terminal from the project folder:
-
-```bash
-# 1. Initialize Git repository
-git init
-
-# 2. Add all files to staging, respecting .gitignore
-git add .
-
-# 3. Commit your changes
-git commit -m "Initial commit for Smart Inventory Opt App"
-
-# 4. Create a new repository on GitHub. Then, run the following replacing 
-# <YOUR_USERNAME> and <REPO_NAME> with your actual details:
-git branch -M main
-git remote add origin https://github.com/<YOUR_USERNAME>/<REPO_NAME>.git
-git push -u origin main
-```
 
 ## Setup and Run Instructions
 
