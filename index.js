@@ -9,9 +9,21 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGODB_URI)
-  .then(() => console.log('MongoDB Connected'))
-  .catch(err => console.error('MongoDB connection error:', err));
+if (!process.env.MONGODB_URI) {
+  console.error("CRITICAL ERROR: MONGODB_URI environment variable is not defined!");
+}
+
+mongoose.connect(process.env.MONGODB_URI, {
+  serverSelectionTimeoutMS: 5000 // 5 seconds timeout for connection
+})
+  .then(() => console.log('MongoDB Connected Successfully'))
+  .catch(err => {
+    console.error('MongoDB Connection Failed!');
+    console.error('Error Details:', err.message);
+    if (err.message.includes('buffering timed out')) {
+      console.error('Tip: Check if your IP is whitelisted in MongoDB Atlas (Network Access -> 0.0.0.0/0)');
+    }
+  });
 
 // View Engine
 app.set('view engine', 'ejs');
